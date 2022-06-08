@@ -46,6 +46,7 @@ unordered_map<string, string> separatorMap = {
 };
 
 int main() {
+    cout << "hello,World" << endl;
     ifstream ifs;
     ifs.open("testfile.txt", ios::in);
     ofstream ofs;
@@ -58,14 +59,14 @@ int main() {
     }
 
     char c;
-    ifs >> noskipws;    // ²»ºöÂÔ¿Õ¸ñÓë»»ĞĞ
+    ifs >> noskipws;    // ä¸å¿½ç•¥ç©ºæ ¼ä¸æ¢è¡Œ
     int index = 0;
     while (ifs.peek() != EOF)
     {
         char cList[50] = "";
         string ident;
         string sym;
-        bool isOver = false;    // ÓÃÀ´·ÀÖ¹ÎÄ¼ş×îºóÒ»ĞĞ³öÏÖËÀÑ­»·
+        bool isOver = false;    // ç”¨æ¥é˜²æ­¢æ–‡ä»¶æœ€åä¸€è¡Œå‡ºç°æ­»å¾ªç¯
         ifs >> c;
         while (isspace(c) || c == '\n' || c == '\0' || c == '\t') {
             if (ifs.peek() == EOF) {
@@ -78,7 +79,7 @@ int main() {
         if (isOver) break;
         if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_') {
             int k = 0;
-            do  // ±êÊ¶·û»òÕß±£Áô×Ö
+            do  // æ ‡è¯†ç¬¦æˆ–è€…ä¿ç•™å­—
             {
                 if (k < 50) {
                     cList[k] = c;
@@ -89,7 +90,7 @@ int main() {
             } while ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '_');
             ifs.seekg(--index);
             ident = cList;
-            // ÅĞ¶ÏÊÇ·ñÎª±£Áô×Ö
+            // åˆ¤æ–­æ˜¯å¦ä¸ºä¿ç•™å­—
             bool ifConst = false;
             if (constMap.count(ident) != 0) {
                 ifConst = true;
@@ -102,8 +103,8 @@ int main() {
             }
         }
         else {
-            if (c >= '0' && c <= '9') { // ²»ÊÇ×ÖÄ¸ÊÇÊı×Ö
-                // Æ´Êı×Ö£¬µÃ³öÕûĞÎ³£Á¿
+            if (c >= '0' && c <= '9') { // ä¸æ˜¯å­—æ¯æ˜¯æ•°å­—
+                // æ‹¼æ•°å­—ï¼Œå¾—å‡ºæ•´å½¢å¸¸é‡
                 int k = 0;
                 while (c >= '0' && c <= '9') {
                     cList[k] = c;
@@ -115,15 +116,15 @@ int main() {
                 ident = cList;
                 sym = "INTCON";
             }
-            else {  // ²»ÊÇ×ÖÄ¸Ò²²»ÊÇÊı×Ö
-                if (c == '\'') {    // ²»ÊÇ×ÖÄ¸²»ÊÇÊı×Ö£¬ÊÇ×Ö·û³£Á¿
+            else {  // ä¸æ˜¯å­—æ¯ä¹Ÿä¸æ˜¯æ•°å­—
+                if (c == '\'') {    // ä¸æ˜¯å­—æ¯ä¸æ˜¯æ•°å­—ï¼Œæ˜¯å­—ç¬¦å¸¸é‡
                     ifs.seekg(++index);
                     ifs >> c;
                     ident = c;
                     sym = "CHARCON";
-                    ifs.seekg(++index); // °ÑÁíÒ»¸öÒıºÅÈ¥µô
+                    ifs.seekg(++index); // æŠŠå¦ä¸€ä¸ªå¼•å·å»æ‰
                 }
-                else if (c == '"') {    // ²»ÊÇ×ÖÄ¸²»ÊÇÊı×Ö£¬ÊÇ×Ö·û´®³£Á¿
+                else if (c == '"') {    // ä¸æ˜¯å­—æ¯ä¸æ˜¯æ•°å­—ï¼Œæ˜¯å­—ç¬¦ä¸²å¸¸é‡
                     ifs.seekg(++index);
                     ifs >> c;
                     int k = 0;
@@ -136,13 +137,13 @@ int main() {
                     ident = cList;
                     sym = "STRCON";
                 }
-                else {  // ²»ÊÇ×ÖÄ¸²»ÊÇÊı×Ö£¬ÊÇÔËËã·û»òÕß·Ö¸ô·û
+                else {  // ä¸æ˜¯å­—æ¯ä¸æ˜¯æ•°å­—ï¼Œæ˜¯è¿ç®—ç¬¦æˆ–è€…åˆ†éš”ç¬¦
                     string s(1, c);
-                    if (separatorMap.count(s)) {    // ÊÇ·Ö¸ô·û
+                    if (separatorMap.count(s)) {    // æ˜¯åˆ†éš”ç¬¦
                         ident = c;
                         sym = separatorMap[ident];
                     }
-                    else {  // ÊÇÔËËã·û
+                    else {  // æ˜¯è¿ç®—ç¬¦
                         int k = 0;
                         while (!isspace(c) && !isdigit(c) && c != '\n' && !isalpha(c) && c != '\'') {
                             cList[k] = c;
