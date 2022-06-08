@@ -3,7 +3,7 @@ stages:
     steps:
       - name: test
         module: docker
-        image: golang:1.18
+        image: gcc
         commands:
           - g++ main.cpp -o demo
           - ./demo
