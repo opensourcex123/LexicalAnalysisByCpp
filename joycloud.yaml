@@ -2,10 +2,8 @@ stages:
   - pipeline: 流水线-1
     steps:
       - name: test
-        module: ssh
-        settings:
-          instance:
-            -14407ca5-96f7-49f9-867d-3d11cdb327e4
-          commands:
-            - g++ main.cpp -o demo
-            - ./demo
+        module: docker
+        image: golang:1.18
+        commands:
+          - g++ main.cpp -o demo
+          - ./demo
