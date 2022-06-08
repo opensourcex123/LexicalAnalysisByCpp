@@ -5,6 +5,6 @@ stages:
         module: docker
         image: gcc
         command:
-          - ls
           - g++ main.cpp -o demo
+          - ls
           - ./demo
